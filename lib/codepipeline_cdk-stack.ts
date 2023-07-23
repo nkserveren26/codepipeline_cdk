@@ -9,6 +9,11 @@ export class CodepipelineCdkStack extends cdk.Stack {
     super(scope, id, props);
 
     //各ステージの定義
+    //ソースステージ
+    
+    //承認ステージ
+
+    //デプロイステージ
 
     //CodeBuildプロジェクトで使用するIAMロールを作成
     const codeBuildRole = IAMCreator.createCodeBuildRole(scope, "codebuild_backend_deploy_role");
