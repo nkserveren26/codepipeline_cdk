@@ -1,6 +1,6 @@
 import { IRepository, Repository } from "aws-cdk-lib/aws-codecommit";
 import { Artifact, Pipeline } from "aws-cdk-lib/aws-codepipeline";
-import * as actions from 'aws-cdk-lib/aws-codepipeline-actions';
+import { CodeCommitSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 import { Construct } from "constructs";
 
 export class PipelineCreator {
@@ -20,13 +20,21 @@ export class PipelineCreator {
 
     }
 
-    public static createCodeCommitSourceAction(actionName: string, repo: IRepository, branch: string, sourceOutput: Artifact) {
-        const codeCommitSourceAction = new actions.CodeCommitSourceAction({
+    public static createCodeCommitSourceAction(
+        actionName: string, 
+        repo: IRepository, 
+        branch: string, 
+        sourceOutput: Artifact): CodeCommitSourceAction {
+        const codeCommitSourceAction = new CodeCommitSourceAction({
             actionName: actionName,
             repository: repo,
             branch: branch,
             output: sourceOutput,
         });
         return codeCommitSourceAction;
+    }
+
+    public static createArtifact() {
+
     }
 }
