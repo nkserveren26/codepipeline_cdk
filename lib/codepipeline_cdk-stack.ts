@@ -5,6 +5,7 @@ import { IAMCreator } from './services/iam/creator';
 import { IRepository } from 'aws-cdk-lib/aws-codecommit';
 import { CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 import { SNSCreator } from './services/sns/creator';
+import { fields } from './fields';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CodepipelineCdkStack extends cdk.Stack {
@@ -29,6 +30,8 @@ export class CodepipelineCdkStack extends cdk.Stack {
     //承認アクション
     const manualApprovalAction: ManualApprovalAction = PipelineCreator.createManualApprovalAction("approval");
     const notificationTopic = SNSCreator.createSNSTopic(scope, "notification-topic-by-email");
+    SNSCreator.addEmailSubscription(notificationTopic, fields.notification_email);
+
 
     //デプロイステージ
 
