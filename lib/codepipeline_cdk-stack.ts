@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import { PipelineCreator } from './services/codepipeline/creator';
 import { IAMCreator } from './services/iam/creator';
 import { IRepository } from 'aws-cdk-lib/aws-codecommit';
-import { CodeCommitSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CodepipelineCdkStack extends cdk.Stack {
@@ -24,8 +24,9 @@ export class CodepipelineCdkStack extends cdk.Stack {
       "master",
       artifact,
     );
-    
+
     //承認アクション
+    const manualApprovalAction: ManualApprovalAction = PipelineCreator.createManualApprovalAction("approval");
 
     //デプロイステージ
 
