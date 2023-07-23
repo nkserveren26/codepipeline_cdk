@@ -2,6 +2,8 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { PipelineCreator } from './services/codepipeline/creator';
 import { IAMCreator } from './services/iam/creator';
+import { IRepository } from 'aws-cdk-lib/aws-codecommit';
+import { CodeCommitSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CodepipelineCdkStack extends cdk.Stack {
@@ -9,18 +11,20 @@ export class CodepipelineCdkStack extends cdk.Stack {
     super(scope, id, props);
 
     //各アクションの定義
+    //アーティファクトの作成
+    const artifact = PipelineCreator.createArtifact();
+
     //ソースアクション
     //CodeCommitリポジトリを取得
-    const codeCommitRepository = PipelineCreator.getCodeCommitRepository(scope, "backend");
+    const codeCommitRepository: IRepository = PipelineCreator.getCodeCommitRepository(scope, "backend");
 
-
-    const artifact = PipelineCreator.createArtifact();
-    const sourceAction = PipelineCreator.createCodeCommitSourceAction(
+    const sourceAction: CodeCommitSourceAction = PipelineCreator.createCodeCommitSourceAction(
       "CodeCommit_Repository", 
       codeCommitRepository,
       "master",
       artifact,
     );
+    
     //承認アクション
 
     //デプロイステージ
