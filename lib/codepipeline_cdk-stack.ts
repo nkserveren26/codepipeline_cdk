@@ -28,11 +28,10 @@ export class CodepipelineCdkStack extends cdk.Stack {
     );
 
     //承認アクション
-    const manualApprovalAction: ManualApprovalAction = PipelineCreator.createManualApprovalAction("approval");
     const notificationTopic = SNSCreator.createSNSTopic(scope, "notification-topic-by-email");
     SNSCreator.addEmailSubscription(notificationTopic, fields.notification_email);
-
-
+    const manualApprovalAction: ManualApprovalAction = PipelineCreator.createManualApprovalAction("approval",notificationTopic);
+    
     //デプロイステージ
 
     //CodeBuildプロジェクトで使用するIAMロールを作成
