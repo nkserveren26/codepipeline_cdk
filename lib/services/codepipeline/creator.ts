@@ -15,7 +15,7 @@ export class PipelineCreator {
     }
 
     public static getCodeCommitRepository(self: Construct, repositoryName: string): IRepository {
-        const repository = Repository.fromRepositoryName(self, repositoryName, repositoryName);
+        const repository: IRepository = Repository.fromRepositoryName(self, repositoryName, repositoryName);
         return repository;
 
     }
@@ -25,7 +25,7 @@ export class PipelineCreator {
         repo: IRepository, 
         branch: string, 
         sourceOutput: Artifact): CodeCommitSourceAction {
-        const codeCommitSourceAction = new CodeCommitSourceAction({
+        const codeCommitSourceAction: CodeCommitSourceAction = new CodeCommitSourceAction({
             actionName: actionName,
             repository: repo,
             branch: branch,
@@ -34,7 +34,8 @@ export class PipelineCreator {
         return codeCommitSourceAction;
     }
 
-    public static createArtifact() {
-
+    public static createArtifact(): Artifact {
+        const artifact: Artifact = new Artifact();
+        return artifact;
     }
 }
