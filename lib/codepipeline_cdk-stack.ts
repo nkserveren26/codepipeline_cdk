@@ -8,10 +8,20 @@ export class CodepipelineCdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    //各ステージの定義
-    //ソースステージ
-    
-    //承認ステージ
+    //各アクションの定義
+    //ソースアクション
+    //CodeCommitリポジトリを取得
+    const codeCommitRepository = PipelineCreator.getCodeCommitRepository(scope, "backend");
+
+
+    const artifact = PipelineCreator.createArtifact();
+    const sourceAction = PipelineCreator.createCodeCommitSourceAction(
+      "CodeCommit_Repository", 
+      codeCommitRepository,
+      "master",
+      artifact,
+    );
+    //承認アクション
 
     //デプロイステージ
 
