@@ -27,8 +27,8 @@ export class PipelineCreator {
         self: Construct, 
         projectName: string, 
         buildSpecPath: string,
-        projectRole: Role) {
-        const codeBuildProject = new PipelineProject(
+        projectRole: Role): PipelineProject {
+        const codeBuildProject: PipelineProject = new PipelineProject(
             self,
             projectName,
             {
@@ -38,10 +38,9 @@ export class PipelineCreator {
                 environment: {
                     buildImage: LinuxBuildImage.STANDARD_5_0,
                 }
-
             }
-
         );
+        return codeBuildProject;
     }
 
     public static createCodeCommitSourceAction(
