@@ -33,11 +33,18 @@ export class CodepipelineCdkStack extends cdk.Stack {
     const manualApprovalAction: ManualApprovalAction = PipelineCreator.createManualApprovalAction("approval",notificationTopic);
     
     //デプロイステージ
-    //CodeBuildプロジェクトの作成
-    //CodeBuildアクションの追加
-
     //CodeBuildプロジェクトで使用するIAMロールを作成
     const codeBuildRole = IAMCreator.createCodeBuildRole(scope, "codebuild_backend_deploy_role");
+    //CodeBuildプロジェクトの作成
+    const codeBuildProject = PipelineCreator.createCodeBuildProject(
+      scope,
+      "CodeBuildProject",
+      "buildspec/buildspec.yml",
+      codeBuildRole
+    );
+    //CodeBuildアクションの追加
+
+    
     //Pipeline作成
     const pipeline = PipelineCreator.createPipeline(scope, "backend_pipeline");
     //Pipelineにステージを追加

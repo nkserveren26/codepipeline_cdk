@@ -2,7 +2,7 @@ import { Effect, PolicyStatement, Role, ServicePrincipal } from "aws-cdk-lib/aws
 import { Construct } from "constructs";
 
 export class IAMCreator {
-    public static createCodeBuildRole(self: Construct, roleName: string) {
+    public static createCodeBuildRole(self: Construct, roleName: string): Role {
         const codeBuildRole = new Role(self, roleName, {
             roleName: roleName,
             assumedBy: new ServicePrincipal('codebuild.amazonaws.com'),
@@ -12,5 +12,6 @@ export class IAMCreator {
                 },
             ],
         });
+        return codeBuildRole;
     }
 }
