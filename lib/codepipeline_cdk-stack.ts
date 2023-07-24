@@ -43,6 +43,11 @@ export class CodepipelineCdkStack extends cdk.Stack {
       codeBuildRole
     );
     //CodeBuildアクションの追加
+    const codeBuildAction = PipelineCreator.createCodeBuildAction(
+      "CodeBuildAction",
+      codeBuildProject,
+      artifact,
+    );
 
     
     //Pipeline作成
