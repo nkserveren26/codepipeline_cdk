@@ -1,7 +1,7 @@
 import { BuildSpec, LinuxBuildImage, PipelineProject } from "aws-cdk-lib/aws-codebuild";
 import { IRepository, Repository } from "aws-cdk-lib/aws-codecommit";
 import { Artifact, Pipeline } from "aws-cdk-lib/aws-codepipeline";
-import { CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { CodeBuildAction, CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 import { Role } from "aws-cdk-lib/aws-iam";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { Construct } from "constructs";
@@ -65,6 +65,18 @@ export class PipelineCreator {
             runOrder: 2,
         });
         return manualApprovalAction;
+    }
+    public static createCodeBuildAction(
+        actionName: string, 
+        codeBuildProject: PipelineProject, 
+        artifact: Artifact): CodeBuildAction {
+        const codeBuildAction = new CodeBuildAction({
+            actionName: actionName,
+            project: codeBuildProject,
+            input: artifact,
+            runOrder: 3,
+        });
+        return codeBuildAction;
     }
 
     public static createArtifact(): Artifact {
