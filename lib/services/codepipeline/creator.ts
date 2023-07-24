@@ -53,6 +53,7 @@ export class PipelineCreator {
             repository: repo,
             branch: branch,
             output: sourceOutput,
+            runOrder: 1,
         });
         return codeCommitSourceAction;
     }
@@ -61,6 +62,7 @@ export class PipelineCreator {
         const manualApprovalAction = new ManualApprovalAction({
             actionName: actionName,
             notificationTopic: notificationTopic,
+            runOrder: 2,
         });
         return manualApprovalAction;
     }
