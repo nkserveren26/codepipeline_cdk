@@ -18,7 +18,7 @@ export class CodepipelineCdkStack extends cdk.Stack {
 
     //ソースアクション
     //CodeCommitリポジトリを取得
-    const codeCommitRepository: IRepository = PipelineCreator.getCodeCommitRepository(scope, "backend");
+    const codeCommitRepository: IRepository = PipelineCreator.getCodeCommitRepository(this, "backend");
 
     const sourceAction: CodeCommitSourceAction = PipelineCreator.createCodeCommitSourceAction(
       "CodeCommit_Repository", 
@@ -28,16 +28,16 @@ export class CodepipelineCdkStack extends cdk.Stack {
     );
 
     //承認アクション
-    const notificationTopic = SNSCreator.createSNSTopic(scope, "notification-topic-by-email");
+    const notificationTopic = SNSCreator.createSNSTopic(this, "notification-topic-by-email");
     SNSCreator.addEmailSubscription(notificationTopic, fields.notification_email);
     const manualApprovalAction: ManualApprovalAction = PipelineCreator.createManualApprovalAction("approval",notificationTopic);
     
     //デプロイステージ
     //CodeBuildプロジェクトで使用するIAMロールを作成
-    const codeBuildRole = IAMCreator.createCodeBuildRole(scope, "codebuild_backend_deploy_role");
+    const codeBuildRole = IAMCreator.createCodeBuildRole(this, "codebuild_backend_deploy_role");
     //CodeBuildプロジェクトの作成
     const codeBuildProject = PipelineCreator.createCodeBuildProject(
-      scope,
+      this,
       "CodeBuildProject",
       "buildspec/buildspec.yml",
       codeBuildRole
@@ -49,9 +49,9 @@ export class CodepipelineCdkStack extends cdk.Stack {
       artifact,
     );
 
-    
     //Pipeline作成
-    const pipeline = PipelineCreator.createPipeline(scope, "backend_pipeline");
+    const pipeline = PipelineCreator.createPipeline(this, "backend_pipeline");
+
     //Pipelineにステージを追加
     //CodeCommitリポジトリからコードを取得するステージ
     PipelineCreator.addStageToPipeline(pipeline, "CodeCommitStage", [sourceAction]);

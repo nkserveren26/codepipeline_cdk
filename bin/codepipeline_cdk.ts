@@ -4,6 +4,6 @@ import * as cdk from 'aws-cdk-lib';
 import { CodepipelineCdkStack } from '../lib/codepipeline_cdk-stack';
 
 const app = new cdk.App();
-new CodepipelineCdkStack(app, 'CodepipelineCdkStack', {
+new CodepipelineCdkStack(app, "CodepipelineCdkStack", {
   env: { region: "ap-northeast-1" },
 });
