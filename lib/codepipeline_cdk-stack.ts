@@ -53,5 +53,7 @@ export class CodepipelineCdkStack extends cdk.Stack {
     //Pipeline作成
     const pipeline = PipelineCreator.createPipeline(scope, "backend_pipeline");
     //Pipelineにステージを追加
+    //CodeCommitリポジトリからコードを取得するステージ
+    PipelineCreator.addStageToPipeline(pipeline, "CodeCommitStage", [sourceAction]);
   }
 }
