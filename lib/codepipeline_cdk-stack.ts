@@ -55,5 +55,11 @@ export class CodepipelineCdkStack extends cdk.Stack {
     //Pipelineにステージを追加
     //CodeCommitリポジトリからコードを取得するステージ
     PipelineCreator.addStageToPipeline(pipeline, "CodeCommitStage", [sourceAction]);
+
+    //承認ステージ
+    PipelineCreator.addStageToPipeline(pipeline, "ApprovalStage", [manualApprovalAction]);
+
+    //CodeBuildステージ
+    PipelineCreator.addStageToPipeline(pipeline, "CodeBuildStage", [codeBuildAction]);
   }
 }
