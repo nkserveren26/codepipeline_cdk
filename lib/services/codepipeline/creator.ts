@@ -13,7 +13,10 @@ export class PipelineCreator {
         });
         return pipeline;
     }
-    public static addStageToPipeline(pipeline: Pipeline, stageName: string, actions: IAction[]): void {
+    public static addStageToPipeline(
+        pipeline: Pipeline, 
+        stageName: string, 
+        actions: IAction[]): void {
         pipeline.addStage({
             stageName: stageName,
             actions: actions,
