@@ -39,7 +39,7 @@ export class CodepipelineCdkStack extends cdk.Stack {
     const codeBuildProject = PipelineCreator.createCodeBuildProject(
       this,
       "CodeBuildProject",
-      "buildspec/buildspec.yml",
+      "buildspec.yml",
       codeBuildRole
     );
     //CodeBuildアクションの追加

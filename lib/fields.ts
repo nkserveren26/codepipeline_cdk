@@ -1,3 +1,3 @@
 export const fields = {
-    notification_email: "ssss@yahoo.co.jp",
+    notification_email: "hogehogehogehgoegee@yahoo.co.jp",
 } as const
