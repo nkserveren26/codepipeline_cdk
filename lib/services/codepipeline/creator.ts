@@ -42,7 +42,7 @@ export class PipelineCreator {
                 buildSpec: BuildSpec.fromSourceFilename(buildSpecPath),
                 role: projectRole,
                 environment: {
-                    buildImage: LinuxBuildImage.STANDARD_5_0,
+                    buildImage: LinuxBuildImage.STANDARD_6_0,
                 }
             }
         );
