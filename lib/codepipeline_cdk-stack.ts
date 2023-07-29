@@ -18,6 +18,9 @@ export class CodepipelineCdkStack extends cdk.Stack {
     //アーティファクトの作成
     const artifact = PipelineCreator.createArtifact();
 
+    //CodeBuildのCloudwatchロググループを作成
+    const codeBuildLogGroup: LogGroup = CloudwatchCreator.createLogGroup(this, "codeBuildLogGroup");
+
     //ソースアクション
     //CodeCommitリポジトリを取得
     const codeCommitRepository: IRepository = PipelineCreator.getCodeCommitRepository(this, "backend");
@@ -28,8 +31,6 @@ export class CodepipelineCdkStack extends cdk.Stack {
       "master",
       artifact,
     );
-
-    const codeBuildLogGroup: LogGroup = CloudwatchCreator.createLogGroup(this, "codeBuildLogGroup");
 
     //承認アクション
     const notificationTopic = SNSCreator.createSNSTopic(this, "notification-topic-by-email");
