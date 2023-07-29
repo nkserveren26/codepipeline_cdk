@@ -45,7 +45,8 @@ export class CodepipelineCdkStack extends cdk.Stack {
       this,
       "CodeBuildProject",
       "buildspec.yml",
-      codeBuildRole
+      codeBuildRole,
+      codeBuildLogGroup,
     );
     //CodeBuildアクションの追加
     const codeBuildAction = PipelineCreator.createCodeBuildAction(

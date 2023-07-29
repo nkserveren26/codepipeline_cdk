@@ -3,6 +3,7 @@ import { IRepository, Repository } from "aws-cdk-lib/aws-codecommit";
 import { Artifact, IAction, Pipeline } from "aws-cdk-lib/aws-codepipeline";
 import { CodeBuildAction, CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 import { Role } from "aws-cdk-lib/aws-iam";
+import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { Construct } from "constructs";
 
@@ -33,7 +34,8 @@ export class PipelineCreator {
         self: Construct, 
         projectName: string, 
         buildSpecPath: string,
-        projectRole: Role): PipelineProject {
+        projectRole: Role,
+        logGroup?: LogGroup): PipelineProject {
         const codeBuildProject: PipelineProject = new PipelineProject(
             self,
             projectName,
@@ -43,7 +45,10 @@ export class PipelineCreator {
                 role: projectRole,
                 environment: {
                     buildImage: LinuxBuildImage.STANDARD_6_0,
-                }
+                },
+                logging: {
+                    cloudWatch: { enabled: true, logGroup },
+                },
             }
         );
         return codeBuildProject;
