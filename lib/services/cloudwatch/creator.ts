@@ -1,5 +1,5 @@
+import { RemovalPolicy } from "aws-cdk-lib";
 import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
-import { RemovalPolicy } from "aws-cdk-lib/core/lib/removal-policy";
 import { Construct } from "constructs";
 
 export class CloudwatchCreator {
