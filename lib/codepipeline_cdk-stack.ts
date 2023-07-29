@@ -6,6 +6,8 @@ import { IRepository } from 'aws-cdk-lib/aws-codecommit';
 import { CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 import { SNSCreator } from './services/sns/creator';
 import { fields } from './fields';
+import { CloudwatchCreator } from './services/cloudwatch/creator';
+import { LogGroup } from 'aws-cdk-lib/aws-logs';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CodepipelineCdkStack extends cdk.Stack {
@@ -26,6 +28,8 @@ export class CodepipelineCdkStack extends cdk.Stack {
       "master",
       artifact,
     );
+
+    const codeBuildLogGroup: LogGroup = CloudwatchCreator.createLogGroup(this, "codeBuildLogGroup");
 
     //承認アクション
     const notificationTopic = SNSCreator.createSNSTopic(this, "notification-topic-by-email");
